@@ -1,0 +1,26 @@
+#
+# Actions (first argument given to FandanGO).
+#
+
+ACTION_HELP = 'help'
+ACTION_INSTALL_PLUGIN = 'installpl'
+ACTION_UNINSTALL_PLUGIN = 'uninstallpl'
+ACTION_CREATE_PROJECT = 'createpr'
+ACTION_DELETE_PROJECT = 'deletepr'
+ACTION_COPY_DATA = 'copypr'
+
+CORE_ACTIONS = [ACTION_CREATE_PROJECT,
+                ACTION_DELETE_PROJECT]
+
+INSTALL_ACTIONS = [ACTION_INSTALL_PLUGIN,
+                   ACTION_UNINSTALL_PLUGIN]
+
+OTHER_PLUGIN_ACTIONS = [ACTION_COPY_DATA]
+
+FANDANGO_CMD = 'fandanGO'
+
+#
+# DDBB
+#
+
+DBNAME = 'fandanGO-core.sqlite'
