@@ -53,7 +53,7 @@ def perform_core_action():
     if action in ACTION_CREATE_PROJECT:
         if parsed_args.name:
             print('FandanGO will create a new project...')
-            new_project = {'project_id': parsed_args.name,
+            new_project = {'project_name': parsed_args.name,
                            'start_date': int(datetime.datetime.now().timestamp()),
                            'proposal_manager': None,
                            'data_management_system': None,

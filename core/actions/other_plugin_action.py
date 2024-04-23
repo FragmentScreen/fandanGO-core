@@ -23,8 +23,8 @@ def delegate_action_to_plugin():
     ###########################################################################
 
     copy_parser = subparsers.add_parser(ACTION_COPY_DATA, formatter_class=argparse.RawTextHelpFormatter,
-                                        usage=f'{invoke_cmd} [-h] [-n] name [-d] raw_data_path [-p] plugin_name',
-                                        epilog=f'Example: {invoke_cmd} -n 202404091 -d /data/Talos/projectx -p irods\n\n',
+                                        usage=f'{invoke_cmd} [-h] [-n] name [-d] raw-data-path [-p] plugin-name',
+                                        epilog=f'Example: {invoke_cmd} -n 202404091 -d /data/Talos/projectx -p fandanGO-irods\n\n',
                                         add_help=False)
     copy_parser.add_argument('-h', '--help', action='store_true', help='show help')
     copy_parser.add_argument('-p', '--plugin', help='plugin to call\n')
@@ -72,7 +72,7 @@ def delegate_action_to_plugin():
 
             if results['success']:
                 if action in ACTION_COPY_DATA:
-                    update_project(parsed_args.name, 'data_management_system', parsed_args.plugin)
+                    update_project(parsed_args.name, 'data_manager', parsed_args.plugin)
 
         else:
             print(

@@ -12,10 +12,10 @@ class Plugin:
 
     @classmethod
     def define_args(cls):
-        cls.define_arg(ACTION_COPY_DATA, {'n': {'long_name': 'name',
+        cls.define_arg(ACTION_COPY_DATA, {'n': {'long_name': 'project-name',
                                                'help': 'the name of the project to copy onto a data sharing environment',
                                                'required': True},
-                                          'd': {'long_name': 'raw_data_path',
+                                          'd': {'long_name': 'raw-data-path',
                                                 'help': 'path of the raw data',
                                                 'required': True}
                                           })
