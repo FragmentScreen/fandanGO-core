@@ -1,3 +1,4 @@
-/build/
+build
 *.egg-info
 *.sqlite
+__pycache__
