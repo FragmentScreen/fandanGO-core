@@ -3,7 +3,7 @@ import argparse
 from importlib import import_module
 from importlib.metadata import entry_points
 from core import Plugin
-from core.constants import ACTION_COPY_DATA, FANDANGO_CMD
+from core.constants import ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA, FANDANGO_CMD
 from core.db.sqlite_db import update_project
 
 
@@ -13,23 +13,54 @@ def delegate_action_to_plugin():
     invoke_cmd = FANDANGO_CMD + ' ' + sys.argv[1]
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    subparsers = parser.add_subparsers(help=f'action "{ACTION_COPY_DATA}"',
+    subparsers = parser.add_subparsers(help=f'action "{ACTION_COPY_DATA}" or "{ACTION_GENERATE_METADATA}" or "{ACTION_SEND_METADATA}"',
                                        dest='action',
                                        title='Action',
-                                       description=f'available actions are "{ACTION_COPY_DATA}"')
+                                       description=f'available actions are "{ACTION_COPY_DATA}" or "{ACTION_GENERATE_METADATA}" or "{ACTION_SEND_METADATA}"')
 
     ###########################################################################
     #                           Copy project parser                           #
     ###########################################################################
 
     copy_parser = subparsers.add_parser(ACTION_COPY_DATA, formatter_class=argparse.RawTextHelpFormatter,
-                                        usage=f'{invoke_cmd} [-h] [-n] name [-d] raw-data-path [-p] plugin-name',
+                                        usage=f'{invoke_cmd} [-h] [-n] project-name [-d] raw-data-path [-p] plugin-name',
                                         epilog=f'Example: {invoke_cmd} -n 202404091 -d /data/Talos/projectx -p fandanGO-irods\n\n',
                                         add_help=False)
     copy_parser.add_argument('-h', '--help', action='store_true', help='show help')
     copy_parser.add_argument('-p', '--plugin', help='plugin to call\n')
 
-    action_to_parser = {ACTION_COPY_DATA: copy_parser}
+    ###########################################################################
+    #                           Generate metadata parser                      #
+    ###########################################################################
+
+    generate_parser = subparsers.add_parser(ACTION_GENERATE_METADATA, formatter_class=argparse.RawTextHelpFormatter,
+                                        usage=f'{invoke_cmd} [-h] [-n] project-name [-p] plugin-name',
+                                        epilog=f'Example: {invoke_cmd} -n 202404091 -p fandanGO-cryo-em-cnb\n\n',
+                                        add_help=False)
+    generate_parser.add_argument('-h', '--help', action='store_true', help='show help')
+    generate_parser.add_argument('-p', '--plugin', help='plugin to call\n')
+
+    ###########################################################################
+    #                           Send metadata parser                          #
+    ###########################################################################
+
+    send_parser = subparsers.add_parser(ACTION_SEND_METADATA, formatter_class=argparse.RawTextHelpFormatter,
+                                        usage=f'{invoke_cmd} [-h] [-n] project-name [-p] plugin-name',
+                                        epilog=f'Example: {invoke_cmd} -n 202404091 -p fandanGO-aria\n\n',
+                                        add_help=False)
+    send_parser.add_argument('-h', '--help', action='store_true', help='show help')
+    send_parser.add_argument('-p', '--plugin', help='plugin to call\n')
+
+
+    action_to_parser = {ACTION_COPY_DATA: copy_parser,
+                        ACTION_GENERATE_METADATA: generate_parser,
+                        ACTION_SEND_METADATA: send_parser}
+
+
+    action_to_parser = {ACTION_COPY_DATA: copy_parser, 
+                        ACTION_SEND_METADATA: send_parser, 
+                        ACTION_GENERATE_METADATA: generate_parser}
+
     parsed_args, unknown_args = parser.parse_known_args(sys.argv[1:])
     action = parsed_args.action
     parser_used = action_to_parser[action]

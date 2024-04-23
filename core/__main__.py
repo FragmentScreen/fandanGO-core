@@ -25,28 +25,27 @@ def main():
 
     # Else HELP or wrong argument
     else:
-        sys.stdout.write('''\
+        sys.stdout.write(f'''\
 Usage: fandanGO [ACTION] [ARGUMENTS]
                     
 ACTION can be:
-    %s           Prints this help message.
+    {ACTION_HELP}\t\t\tPrints this help message.
 
-    %s      Installs FandanGO plugins.
+    {ACTION_INSTALL_PLUGIN}\t\t\tInstalls FandanGO plugins.
     
-    %s    Uninstalls FandanGO plugins from a terminal.
+    {ACTION_UNINSTALL_PLUGIN}\t\t\tUninstalls FandanGO plugins from a terminal.
     
-    %s       Creates a FandanGO project.
+    {ACTION_CREATE_PROJECT}\t\t\tCreates a FandanGO project.
     
-    %s       Deletes a FandanGO project.
+    {ACTION_DELETE_PROJECT}\t\t\tDeletes a FandanGO project.
     
-    %s         Copies a FandanGO project into a data sharing environment.
-''' % (ACTION_HELP,
-       ACTION_INSTALL_PLUGIN,
-       ACTION_UNINSTALL_PLUGIN,
-       ACTION_CREATE_PROJECT,
-       ACTION_DELETE_PROJECT,
-       ACTION_COPY_DATA
-       ))
+    {ACTION_COPY_DATA}\t\t\tCopies a FandanGO project into a data sharing environment.
+
+    {ACTION_GENERATE_METADATA}\t\tGenerates metadata file for a FandanGO project.
+
+    {ACTION_SEND_METADATA}\t\tSends metadata from a FandanGO project.
+                         
+''')
 
 if __name__ == '__main__':
     try:

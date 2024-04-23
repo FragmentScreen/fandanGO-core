@@ -1,5 +1,4 @@
-from core.constants import ACTION_COPY_DATA
-
+from core.constants import ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA
 
 class Plugin:
 
@@ -19,6 +18,17 @@ class Plugin:
                                                 'help': 'path of the raw data',
                                                 'required': True}
                                           })
+                
+        cls.define_arg(ACTION_GENERATE_METADATA, {'n': {'long_name': 'project-name',
+                                                        'help': 'the name of the project for which metadata will be generated',
+                                                        'required': True}
+                                          })
+        
+        cls.define_arg(ACTION_SEND_METADATA, {'n': {'long_name': 'project-name',
+                                                    'help': 'the name of the project for which metadata will be sent',
+                                                    'required': True}
+                                          })
+        
     @classmethod
     def get_args(cls):
         return cls.allowed_args
