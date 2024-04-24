@@ -21,7 +21,7 @@ def perform_core_action():
     ###########################################################################
 
     create_parser = subparsers.add_parser(ACTION_CREATE_PROJECT, formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd} [-h] [-n] project_name',
+                                          usage=f'{invoke_cmd} [-h] [-n] project-name',
                                           epilog=f'Example: {invoke_cmd} -n 202404091  \n\n',
                                           add_help=False)
     create_parser.add_argument('-h', '--help', action='store_true', help='show help')
@@ -33,7 +33,7 @@ def perform_core_action():
 
     delete_parser = subparsers.add_parser(ACTION_DELETE_PROJECT, aliases=[ACTION_DELETE_PROJECT],
                                           formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd} [-h] [-n] project_name',
+                                          usage=f'{invoke_cmd} [-h] [-n] project-name',
                                           epilog=f'Example: {invoke_cmd} -n 202404091  \n\n',
                                           add_help=False)
     delete_parser.add_argument('-h', '--help', action='store_true', help='show help')

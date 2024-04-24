@@ -3,11 +3,11 @@
 #
 
 ACTION_HELP = 'help'
-ACTION_INSTALL_PLUGIN = 'installpl'
-ACTION_UNINSTALL_PLUGIN = 'uninstallpl'
-ACTION_CREATE_PROJECT = 'createpr'
-ACTION_DELETE_PROJECT = 'deletepr'
-ACTION_COPY_DATA = 'copypr'
+ACTION_INSTALL_PLUGIN = 'install-plugin'
+ACTION_UNINSTALL_PLUGIN = 'uninstall-plugin'
+ACTION_CREATE_PROJECT = 'create-project'
+ACTION_DELETE_PROJECT = 'delete-project'
+ACTION_COPY_DATA = 'copy-project'
 
 ACTION_GENERATE_METADATA = 'generate-metadata'
 ACTION_SEND_METADATA = 'send-metadata'

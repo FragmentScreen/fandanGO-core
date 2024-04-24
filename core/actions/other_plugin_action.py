@@ -34,9 +34,9 @@ def delegate_action_to_plugin():
     ###########################################################################
 
     generate_parser = subparsers.add_parser(ACTION_GENERATE_METADATA, formatter_class=argparse.RawTextHelpFormatter,
-                                        usage=f'{invoke_cmd} [-h] [-n] project-name [-p] plugin-name',
-                                        epilog=f'Example: {invoke_cmd} -n 202404091 -p fandanGO-cryo-em-cnb\n\n',
-                                        add_help=False)
+                                            usage=f'{invoke_cmd} [-h] [-n] project-name [-p] plugin-name',
+                                            epilog=f'Example: {invoke_cmd} -n 202404091 -p fandanGO-cryo-em-cnb\n\n',
+                                            add_help=False)
     generate_parser.add_argument('-h', '--help', action='store_true', help='show help')
     generate_parser.add_argument('-p', '--plugin', help='plugin to call\n')
 
@@ -51,14 +51,8 @@ def delegate_action_to_plugin():
     send_parser.add_argument('-h', '--help', action='store_true', help='show help')
     send_parser.add_argument('-p', '--plugin', help='plugin to call\n')
 
-
     action_to_parser = {ACTION_COPY_DATA: copy_parser,
-                        ACTION_GENERATE_METADATA: generate_parser,
-                        ACTION_SEND_METADATA: send_parser}
-
-
-    action_to_parser = {ACTION_COPY_DATA: copy_parser, 
-                        ACTION_SEND_METADATA: send_parser, 
+                        ACTION_SEND_METADATA: send_parser,
                         ACTION_GENERATE_METADATA: generate_parser}
 
     parsed_args, unknown_args = parser.parse_known_args(sys.argv[1:])
