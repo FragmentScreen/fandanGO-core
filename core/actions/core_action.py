@@ -60,8 +60,8 @@ def perform_core_action():
                            'metadata_path': None}
             create_new_project(new_project)
         else:
-            print('Incorrect usage of command "createpr". Execute "fandanGO createpr --help" or '
-                  '"fandanGO --help" for more details')
+            print(f'Incorrect usage of command "{ACTION_CREATE_PROJECT}". Execute "{FANDANGO_CMD} {ACTION_CREATE_PROJECT} --help" or '
+                  f'"{FANDANGO_CMD} --help" for more details')
             exit_with_errors = True
 
     elif action in ACTION_DELETE_PROJECT:
@@ -69,8 +69,8 @@ def perform_core_action():
             print('FandanGO will delete an existing project...')
             delete_project(parsed_args.name)
         else:
-            print('Incorrect usage of command "deletepr". Execute "fandanGO deletepr --help" or '
-                  '"fandanGO --help" for more details')
+            print(f'Incorrect usage of command "{ACTION_DELETE_PROJECT}". Execute "{FANDANGO_CMD} {ACTION_DELETE_PROJECT} --help" or '
+                  f'"{FANDANGO_CMD} --help" for more details')
             exit_with_errors = True
 
     if exit_with_errors:

@@ -90,8 +90,8 @@ def install_plugin_methods():
                     exit_with_errors = True
 
         else:
-            print('Incorrect usage of command "installpl". Execute "fandanGO installpl --help" or '
-                  '"fandanGO --help" for more details')
+            print(f'Incorrect usage of command "{ACTION_INSTALL_PLUGIN}". Execute "{FANDANGO_CMD} {ACTION_INSTALL_PLUGIN} --help" or '
+                  f'"{FANDANGO_CMD} --help" for more details')
             exit_with_errors = True
 
     elif action in ACTION_UNINSTALL_PLUGIN:
@@ -100,8 +100,8 @@ def install_plugin_methods():
             cmd = [sys.executable, '-m', 'pip', 'uninstall', parsed_args.plugin]
             subprocess.call(cmd)
         else:
-            print('Incorrect usage of command "uninstallpl". Execute "fandanGO uninstallpl --help" or '
-                  '"fandanGO --help" for more details')
+            print(f'Incorrect usage of command "{ACTION_UNINSTALL_PLUGIN}". Execute "{FANDANGO_CMD} {ACTION_UNINSTALL_PLUGIN} --help" or '
+                  f'"{FANDANGO_CMD} --help" for more details')
             exit_with_errors = True
 
     if exit_with_errors:
