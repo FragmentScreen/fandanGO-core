@@ -1,4 +1,5 @@
 import sys
+import subprocess
 from core.constants import *
 
 def get_mode():
@@ -7,6 +8,17 @@ def get_mode():
         return sys.argv[1]
     else:
         return None
+
+
+def runCmd(cmd, args=''):
+    """ Runs ANY command with its arguments"""
+    if isinstance(args, list):
+        args = ' '.join('"%s"' % x for x in args)
+
+    cmd = '%s %s' % (cmd, args)
+
+    result = subprocess.call(cmd, shell=True)
+    sys.exit(result)
 
 def main():
     mode = get_mode()
@@ -22,6 +34,10 @@ def main():
     elif mode in OTHER_PLUGIN_ACTIONS:
         from core.actions.other_plugin_action import delegate_action_to_plugin
         delegate_action_to_plugin()
+
+    elif mode == ACTION_PIP:
+        # Runs pip command inside FandanGO's environment.
+        runCmd('pip ' + ' '.join(['"%s"' % arg for arg in sys.argv[2:]]))
 
     # Else HELP or wrong argument
     else:

@@ -8,6 +8,7 @@ ACTION_UNINSTALL_PLUGIN = 'uninstall-plugin'
 ACTION_CREATE_PROJECT = 'create-project'
 ACTION_DELETE_PROJECT = 'delete-project'
 ACTION_COPY_DATA = 'copy-project'
+ACTION_PIP = 'pip'
 
 ACTION_GENERATE_METADATA = 'generate-metadata'
 ACTION_SEND_METADATA = 'send-metadata'
