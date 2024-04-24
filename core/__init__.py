@@ -1,4 +1,4 @@
-from core.constants import ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA
+from core.constants import ACTION_LINK_PROJECT, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA
 
 
 class Plugin:
@@ -11,6 +11,14 @@ class Plugin:
 
     @classmethod
     def define_args(cls):
+        cls.define_arg(ACTION_LINK_PROJECT, {'n': {'long_name': 'project-name',
+                                                   'help': 'the name of the project to associate to a proposal',
+                                                   'required': True},
+                                             'id': {'long_name': 'proposal-id',
+                                                    'help': 'the id of the proposal',
+                                                    'required': True}
+                                             })
+
         cls.define_arg(ACTION_COPY_DATA, {'n': {'long_name': 'project-name',
                                                 'help': 'the name of the project to copy onto a data sharing environment',
                                                 'required': True},

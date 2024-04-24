@@ -47,15 +47,17 @@ Usage: fandanGO [ACTION] [ARGUMENTS]
 ACTION can be:
     {ACTION_HELP}\t\t\tPrints this help message.
 
-    {ACTION_INSTALL_PLUGIN}\t\t\tInstalls FandanGO plugins.
+    {ACTION_INSTALL_PLUGIN}\t\tInstalls FandanGO plugins.
     
-    {ACTION_UNINSTALL_PLUGIN}\t\t\tUninstalls FandanGO plugins from a terminal.
+    {ACTION_UNINSTALL_PLUGIN}\t\tUninstalls FandanGO plugins from a terminal.
     
-    {ACTION_CREATE_PROJECT}\t\t\tCreates a FandanGO project.
+    {ACTION_CREATE_PROJECT}\t\tCreates a FandanGO project.
     
-    {ACTION_DELETE_PROJECT}\t\t\tDeletes a FandanGO project.
+    {ACTION_DELETE_PROJECT}\t\tDeletes a FandanGO project.
     
-    {ACTION_COPY_DATA}\t\t\tCopies a FandanGO project into a data sharing environment.
+    {ACTION_LINK_PROJECT}\t\tLinks a FandanGO project with a proposal id.
+    
+    {ACTION_COPY_DATA}\t\tCopies a FandanGO project into a data sharing environment.
 
     {ACTION_GENERATE_METADATA}\t\tGenerates metadata file for a FandanGO project.
 
