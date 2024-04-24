@@ -66,12 +66,12 @@ This is the core plugin of the FandanGO application.
 
 - Install:
    ```
-   fandanGO installpl -p /path/to/fandanGO-plugin
+   fandanGO install-plugin -p /path/to/fandanGO-plugin
    ```
 
 - Uninstall:
    ```
-   fandanGO uninstallpl -p fandanGO-plugin
+   fandanGO uninstall-plugin -p fandanGO-plugin
    ```
 
 ### How to develop a new plugin
@@ -92,4 +92,4 @@ A FandanGO plugin should have:
 4. Each of the methods described in the `define_methods` function should return a dictionary with the `success` key with the value `True` or `False` depending on whether the action went well or not.
 5. For integrity reasons, your plugin database should store the FandanGO project name as one of the table fields.
 
-You can take as example the fandanGO-template plugin placed at https://github.com/I2PC/fandanGO-template
+You can take as example the fandanGO-template plugin placed at https://github.com/FragmentScreen/fandanGO-template
