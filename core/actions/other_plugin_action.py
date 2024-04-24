@@ -4,7 +4,7 @@ from importlib import import_module
 from importlib.metadata import entry_points
 from core import Plugin
 from core.constants import ACTION_LINK_PROJECT, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA, FANDANGO_CMD
-from core.db.sqlite_db import update_project
+from core.db.sqlite_db import update_project, check_if_project_exists, get_metadata_path
 
 
 def delegate_action_to_plugin():
@@ -102,15 +102,31 @@ def delegate_action_to_plugin():
 
             parsed_args = parser_used.parse_args(unknown_args, namespace=parsed_args)
 
-            # define the methods implemented by the plugin selected
-            plugin_module.Plugin.define_methods()
-            # get the method for the selected action
-            action_method = plugin_module.Plugin.get_methods()[parsed_args.action]
-            results = action_method(vars(parsed_args))
+            if check_if_project_exists(parsed_args.project_name):
+                args = vars(parsed_args)
+                if action in ACTION_SEND_METADATA:
+                    metadata_path = get_metadata_path(parsed_args.project_name)
+                    if metadata_path:
+                        args.update({'metadata_path': metadata_path})
+                    else:
+                        exit_with_errors = True
+                        print(f'There is no metadata for project with name {parsed_args.project_name}!')
+            else:
+                exit_with_errors = True
+                print(f'The project with name {parsed_args.project_name} does not exist!')
 
-            if results['success']:
-                if action in ACTION_COPY_DATA:
-                    update_project(parsed_args.name, 'data_manager', parsed_args.plugin)
+            if not exit_with_errors:
+                # define the methods implemented by the plugin selected
+                plugin_module.Plugin.define_methods()
+                # get the method for the selected action
+                action_method = plugin_module.Plugin.get_methods()[parsed_args.action]
+                results = action_method(args)
+
+                if results['success']:
+                    if action in ACTION_LINK_PROJECT:
+                        update_project(parsed_args.project_name, 'proposal_manager', parsed_args.plugin)
+                    if action in ACTION_COPY_DATA:
+                        update_project(parsed_args.project_name, 'data_manager', parsed_args.plugin)
 
         else:
             print(

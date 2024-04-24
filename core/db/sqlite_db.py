@@ -72,3 +72,18 @@ def delete_project(project_name):
     finally:
         if connection:
             close_connection_to_ddbb(connection)
+
+
+def get_metadata_path(project_name):
+    connection = None
+    try:
+        connection = connect_to_ddbb()
+        cursor = connection.cursor()
+        cursor.execute('SELECT metadata_path FROM project WHERE project_name = ?', (project_name,))
+        metadata_path = cursor.fetchone()[0]
+        return metadata_path
+    except Exception as e:
+        print(f'... could not check projects with name {project_name} because of: {e}')
+    finally:
+        if connection:
+            close_connection_to_ddbb(connection)
