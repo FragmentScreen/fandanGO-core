@@ -9,6 +9,9 @@ This is the core plugin of the FandanGO application.
    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
    bash Miniconda3-latest-Linux-x86_64.sh -b -p /path/for/miniconda
    ```
+   
+   On a Mac you can use the command `brew install miniconda`
+
 
 2. Make sure you are running bash shell (run `echo $SHELL` in your console), then initialize conda (replace `/path/for/miniconda/` with the proper path):
    ```
@@ -27,6 +30,9 @@ This is the core plugin of the FandanGO application.
    pip install -e /path/for/fandanGO-core
    ```
    
+   You will need to run `conda init SHELLNAME` prior to this, on Mac this is likely to be `conda init zsh`
+   
+
 5. Create a launcher file, let's call it "fandanGO", with the following content (replace `/path/for/miniconda/` with the proper path):
    ```
    #!/usr/bin/env python3
