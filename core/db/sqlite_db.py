@@ -1,6 +1,5 @@
 from core.db.sqlite import connect_to_ddbb, close_connection_to_ddbb
 
-
 def create_new_project(new_project):
     connection = None
     try:
@@ -9,11 +8,9 @@ def create_new_project(new_project):
         if check_if_project_exists(new_project['project_name']):
             print(f'... there is an existing project with the name {new_project["project_name"]}. Choose other name!')
         else:
-            cursor.execute('INSERT INTO project VALUES (?, ?, ?, ?, ?)', (new_project['project_name'],
-                                                                          new_project['start_date'],
-                                                                          new_project['proposal_manager'],
-                                                                          new_project['data_management_system'],
-                                                                          new_project['metadata_path']))
+            cursor.execute('INSERT INTO project VALUES (?, ?, ?)', (new_project['project_name'],
+                                                                    new_project['start_date'],
+                                                                    new_project['plugin_manager']))
             connection.commit()
             print(f'... project created with name {new_project["project_name"]}')
     except Exception as e:
@@ -74,16 +71,17 @@ def delete_project(project_name):
             close_connection_to_ddbb(connection)
 
 
-def get_metadata_path(project_name):
+def list_projects():
     connection = None
     try:
         connection = connect_to_ddbb()
         cursor = connection.cursor()
-        cursor.execute('SELECT metadata_path FROM project WHERE project_name = ?', (project_name,))
-        metadata_path = cursor.fetchone()[0]
-        return metadata_path
+        cursor.execute('SELECT * FROM project')
+        projects = cursor.fetchall()
+        column_names = [columns[0] for columns in cursor.description]
+        return column_names, projects
     except Exception as e:
-        print(f'... could not check projects with name {project_name} because of: {e}')
+        print(f'... could not check projects because of: {e}')
     finally:
         if connection:
             close_connection_to_ddbb(connection)

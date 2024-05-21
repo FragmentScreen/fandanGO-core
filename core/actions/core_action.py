@@ -1,9 +1,9 @@
 import sys
 import argparse
 import datetime
-from core.constants import ACTION_CREATE_PROJECT, ACTION_DELETE_PROJECT, FANDANGO_CMD
-from core.db.sqlite_db import create_new_project, delete_project
-
+from core.constants import ACTION_CREATE_PROJECT, ACTION_DELETE_PROJECT, ACTION_LIST_PROJECTS, FANDANGO_CMD
+from core.db.sqlite_db import create_new_project, delete_project, list_projects
+from tabulate import tabulate
 
 def perform_core_action():
     """ Deals with core basic actions """
@@ -39,8 +39,20 @@ def perform_core_action():
     delete_parser.add_argument('-h', '--help', action='store_true', help='show help')
     delete_parser.add_argument('-n', '--name', help='the name of the project to delete\n')
 
+    ###########################################################################
+    #                           List projects parser                          #
+    ###########################################################################
+
+    list_parser = subparsers.add_parser(ACTION_LIST_PROJECTS, aliases=[ACTION_LIST_PROJECTS],
+                                          formatter_class=argparse.RawTextHelpFormatter,
+                                          usage=f'{invoke_cmd}',
+                                          epilog=f'Example: {invoke_cmd}\n\n',
+                                          add_help=False)
+    list_parser.add_argument('-h', '--help', action='store_true', help='show help')
+
     action_to_parser = {ACTION_CREATE_PROJECT: create_parser,
-                        ACTION_DELETE_PROJECT: delete_parser}
+                        ACTION_DELETE_PROJECT: delete_parser,
+                        ACTION_LIST_PROJECTS: list_parser}
     parsed_args = parser.parse_args(sys.argv[1:])
     action = parsed_args.action
     parser_used = action_to_parser[action]
@@ -55,9 +67,7 @@ def perform_core_action():
             print('FandanGO will create a new project...')
             new_project = {'project_name': parsed_args.name,
                            'start_date': int(datetime.datetime.now().timestamp()),
-                           'proposal_manager': None,
-                           'data_management_system': None,
-                           'metadata_path': None}
+                           'plugin_manager': None}
             create_new_project(new_project)
         else:
             print(f'Incorrect usage of command "{ACTION_CREATE_PROJECT}". Execute "{FANDANGO_CMD} {ACTION_CREATE_PROJECT} --help" or '
@@ -72,6 +82,11 @@ def perform_core_action():
             print(f'Incorrect usage of command "{ACTION_DELETE_PROJECT}". Execute "{FANDANGO_CMD} {ACTION_DELETE_PROJECT} --help" or '
                   f'"{FANDANGO_CMD} --help" for more details')
             exit_with_errors = True
+
+    elif action in ACTION_LIST_PROJECTS:
+        column_names, projects = list_projects()
+        print('FandanGO project list:\n')
+        print(tabulate(projects, headers=column_names, tablefmt="pretty"))
 
     if exit_with_errors:
         parser_used.exit(1)

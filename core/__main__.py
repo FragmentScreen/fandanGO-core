@@ -55,6 +55,8 @@ ACTION can be:
     
     {ACTION_DELETE_PROJECT}\t\tDeletes a FandanGO project.
     
+    {ACTION_LIST_PROJECTS}\t\tList FandanGO projects.
+    
     {ACTION_LINK_PROJECT}\t\tLinks a FandanGO project with a proposal id.
     
     {ACTION_COPY_DATA}\t\tCopies a FandanGO project into a data sharing environment.

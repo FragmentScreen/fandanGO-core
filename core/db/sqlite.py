@@ -14,9 +14,7 @@ def create_ddbb_data(connection):
     cursor.execute('''CREATE TABLE IF NOT EXISTS project (
                         project_name TEXT NOT NULL,
                         start_date INTEGER NOT NULL,
-                        proposal_manager TEXT DEFAULT NULL,
-                        data_manager TEXT DEFAULT NULL,
-                        metadata_path TEXT DEFAULT NULL,
+                        plugin_manager TEXT DEFAULT NULL,
                         PRIMARY KEY(project_name));''')
     connection.commit()
 

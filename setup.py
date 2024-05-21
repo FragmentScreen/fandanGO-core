@@ -8,6 +8,10 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+# Load requirements.txt
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setup(
     name='fandanGO-core',
     version='0.1.0',
@@ -16,4 +20,5 @@ setup(
     author='CNB-CSIC, Carolina Simon, Irene Sanchez',
     author_email='carolina.simon@cnb.csic.es, isanchez@cnb.csic.es',
     packages=find_packages(),
+    install_requires=[requirements]
 )
