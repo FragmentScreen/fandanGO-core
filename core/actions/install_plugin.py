@@ -27,8 +27,8 @@ def install_plugin_methods():
                                            usage=f'{invoke_cmd} [-h] [-p] plugin-path',
                                            epilog=f'Example: {invoke_cmd} -p /home/user/fandanGO-irods  \n\n',
                                            add_help=False)
-    install_parser.add_argument('-h', '--help', action='store_true', help='show help')
-    install_parser.add_argument('-p', '--plugin', help='the path of the plugin to install\n')
+    install_parser.add_argument('--help', action='store_true', help='show help')
+    install_parser.add_argument('--plugin', help='the path of the plugin to install\n')
 
     ############################################################################
     #                             Uninstall parser                             #
@@ -38,8 +38,8 @@ def install_plugin_methods():
                                              usage=f'{invoke_cmd} [-h] [-p] plugin-name',
                                              epilog=f'Example: {invoke_cmd} -p fandanGO-irods  \n\n',
                                              add_help=False)
-    uninstall_parser.add_argument('-h', '--help', action='store_true', help='show help')
-    uninstall_parser.add_argument('-p', '--plugin', help='the name of the plugin to uninstall\n')
+    uninstall_parser.add_argument('--help', action='store_true', help='show help')
+    uninstall_parser.add_argument('--plugin', help='the name of the plugin to uninstall\n')
 
     action_to_parser = {ACTION_INSTALL_PLUGIN: install_parser,
                         ACTION_UNINSTALL_PLUGIN: uninstall_parser}

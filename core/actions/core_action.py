@@ -24,8 +24,8 @@ def perform_core_action():
                                           usage=f'{invoke_cmd} [-h] [-n] project-name',
                                           epilog=f'Example: {invoke_cmd} -n 202404091  \n\n',
                                           add_help=False)
-    create_parser.add_argument('-h', '--help', action='store_true', help='show help')
-    create_parser.add_argument('-n', '--name', help='the name of the project to create\n')
+    create_parser.add_argument('--help', action='store_true', help='show help')
+    create_parser.add_argument('--name', help='the name of the project to create\n')
 
     ###########################################################################
     #                          Delete project parser                          #
@@ -36,8 +36,8 @@ def perform_core_action():
                                           usage=f'{invoke_cmd} [-h] [-n] project-name',
                                           epilog=f'Example: {invoke_cmd} -n 202404091  \n\n',
                                           add_help=False)
-    delete_parser.add_argument('-h', '--help', action='store_true', help='show help')
-    delete_parser.add_argument('-n', '--name', help='the name of the project to delete\n')
+    delete_parser.add_argument('--help', action='store_true', help='show help')
+    delete_parser.add_argument('--name', help='the name of the project to delete\n')
 
     ###########################################################################
     #                           List projects parser                          #
@@ -48,7 +48,7 @@ def perform_core_action():
                                           usage=f'{invoke_cmd}',
                                           epilog=f'Example: {invoke_cmd}\n\n',
                                           add_help=False)
-    list_parser.add_argument('-h', '--help', action='store_true', help='show help')
+    list_parser.add_argument('--help', action='store_true', help='show help')
 
     action_to_parser = {ACTION_CREATE_PROJECT: create_parser,
                         ACTION_DELETE_PROJECT: delete_parser,
