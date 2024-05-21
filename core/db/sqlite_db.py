@@ -25,9 +25,12 @@ def update_project(project_name, attribute_name, value):
     try:
         connection = connect_to_ddbb()
         cursor = connection.cursor()
-        cursor.execute(f'UPDATE project SET {attribute_name} = ? WHERE project_name = ?', (value, project_name))
-        connection.commit()
-        print(f'... updated project with name {project_name}')
+        if check_if_project_exists(project_name):
+            cursor.execute(f'UPDATE project SET {attribute_name} = ? WHERE project_name = ?', (value, project_name))
+            connection.commit()
+            print(f'... updated project with name {project_name}')
+        else:
+            print(f'... there is no project with name {project_name}')
     except Exception as e:
         print(f'... project could not be updated because of: {e}')
     finally:
