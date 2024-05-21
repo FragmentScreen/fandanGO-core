@@ -11,10 +11,10 @@ def perform_core_action():
     invoke_cmd = FANDANGO_CMD + ' ' + sys.argv[1]
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    subparsers = parser.add_subparsers(help=f'action "{ACTION_CREATE_PROJECT}" or "{ACTION_DELETE_PROJECT}"',
+    subparsers = parser.add_subparsers(help=f'action "{ACTION_CREATE_PROJECT}", "{ACTION_DELETE_PROJECT}" or "{ACTION_LIST_PROJECTS}"',
                                        dest='action',
                                        title='Action',
-                                       description=f'available actions are "{ACTION_CREATE_PROJECT}" or "{ACTION_DELETE_PROJECT}"')
+                                       description=f'available actions are "{ACTION_CREATE_PROJECT}", "{ACTION_DELETE_PROJECT}" or "{ACTION_LIST_PROJECTS}"')
 
     ###########################################################################
     #                          Create project parser                          #
