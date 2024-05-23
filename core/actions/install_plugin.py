@@ -21,7 +21,7 @@ def install_plugin_methods():
     ############################################################################
 
     install_parser = subparsers.add_parser(ACTION_INSTALL_PLUGIN,
-                                           usage=f'{invoke_cmd} [--help] --plugin PLUGIN-PATH',
+                                           usage=f'{invoke_cmd} [--help] --plugin PLUGIN_PATH',
                                            epilog=f'Example: {invoke_cmd} --plugin /home/user/fandanGO-cryoem-cnb\n\n',
                                            add_help=False)
     install_parser.add_argument('--help', action='store_true', help='show help')
@@ -32,7 +32,7 @@ def install_plugin_methods():
     ############################################################################
 
     uninstall_parser = subparsers.add_parser(ACTION_UNINSTALL_PLUGIN,
-                                             usage=f'{invoke_cmd} [--help] --plugin PLUGIN-NAME',
+                                             usage=f'{invoke_cmd} [--help] --plugin PLUGIN_NAME',
                                              epilog=f'Example: {invoke_cmd} --plugin fandanGO-cryoem-cnb\n\n',
                                              add_help=False)
     uninstall_parser.add_argument('--help', action='store_true', help='show help')
