@@ -2,7 +2,7 @@ import sys
 import argparse
 from importlib import import_module
 from importlib.metadata import entry_points
-from core.constants import ACTION_LINK_PROJECT, ACTION_LIST_PROJECTS, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA, FANDANGO_CMD
+from core.constants import ACTION_LINK_PROJECT, ACTION_LIST_PROJECTS, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA, ACTION_PRINT_PROJECT, FANDANGO_CMD
 from core.db.sqlite_db import check_if_project_exists, get_plugin_manager
 
 
@@ -35,9 +35,18 @@ def delegate_action_to_plugin():
     send_parser = subparsers.add_parser(ACTION_SEND_METADATA, add_help=False)
     send_parser.add_argument('--name', help='the name of the project to send metadata\n')
 
+    ###########################################################################
+    #                           Print project parser                          #
+    ###########################################################################
+
+    print_parser = subparsers.add_parser(ACTION_PRINT_PROJECT,
+                                         add_help=False)
+    print_parser.add_argument('--name', help='the name of the project to get info about\n')
+
     action_to_parser = {ACTION_COPY_DATA: copy_parser,
                         ACTION_GENERATE_METADATA: generate_parser,
-                        ACTION_SEND_METADATA: send_parser}
+                        ACTION_SEND_METADATA: send_parser,
+                        ACTION_PRINT_PROJECT: print_parser}
 
     parsed_args, unknown_args = init_parser.parse_known_args(sys.argv[1:])
     action = parsed_args.action
@@ -69,23 +78,24 @@ def delegate_action_to_plugin():
                     plugin_module = import_module(plugin_module_name)
                     # define the arguments required by the plugin_manager
                     plugin_module.Plugin.define_args()
-                    allowed_args = plugin_module.Plugin.get_args()[parsed_args.action]
+                    allowed_args = plugin_module.Plugin.get_args().get(parsed_args.action, [])
 
-                    final_parser = argparse.ArgumentParser(parents=[parser_used],
-                                                           usage=f'{invoke_cmd} [--help] --name PROJECT_NAME {allowed_args["help"]["usage"]}',
-                                                           epilog=f'Example: {invoke_cmd} --name test_project {allowed_args["help"]["epilog"]}\n\n',
-                                                           add_help=True)
+                    if allowed_args:
+                        final_parser = argparse.ArgumentParser(parents=[parser_used],
+                                                               usage=f'{invoke_cmd} [--help] --name PROJECT_NAME {allowed_args["help"]["usage"]}',
+                                                               epilog=f'Example: {invoke_cmd} --name test_project {allowed_args["help"]["epilog"]}\n\n',
+                                                               add_help=True)
 
-                    for arg_name, arg_info in allowed_args['args'].items():
-                        final_parser.add_argument(f'--{arg_name}', help=arg_info['help'], required=arg_info['required'], choices=arg_info.get('choices'))
+                        for arg_name, arg_info in allowed_args['args'].items():
+                            final_parser.add_argument(f'--{arg_name}', help=arg_info['help'], required=arg_info['required'], choices=arg_info.get('choices'))
 
-                    parsed_args = final_parser.parse_args(unknown_args, namespace=parsed_args)
+                        parsed_args = final_parser.parse_args(unknown_args, namespace=parsed_args)
 
                     plugin_module.Plugin.define_methods()
                     action_method = plugin_module.Plugin.get_methods()[parsed_args.action]
                     print('Performing action...')
                     results = action_method(vars(parsed_args))
-                    print('Results:', results)
+                    print('Results:\n', results)
 
                 else:
                     print(f'The project {parsed_args.name} does not have a plugin manager associated. Execute "{FANDANGO_CMD} {ACTION_LINK_PROJECT} --help" for more details')

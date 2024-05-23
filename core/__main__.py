@@ -59,6 +59,8 @@ ACTION can be:
     
     {ACTION_LINK_PROJECT}\t\tLinks a FandanGO project with a technique-facility plugin manager.
     
+    {ACTION_PRINT_PROJECT}\t\tPrint info for a FandanGO project.
+    
     {ACTION_COPY_DATA}\t\t\tCopies a FandanGO project into a data sharing environment.
 
     {ACTION_GENERATE_METADATA}\t\tGenerates metadata for a FandanGO project.

@@ -10,6 +10,7 @@ ACTION_CREATE_PROJECT = 'create-project'
 ACTION_DELETE_PROJECT = 'delete-project'
 ACTION_LIST_PROJECTS = 'list-projects'
 ACTION_LINK_PROJECT = 'link-project'
+ACTION_PRINT_PROJECT = 'print-project'
 
 ACTION_COPY_DATA = 'copy-data'
 ACTION_GENERATE_METADATA = 'generate-metadata'
@@ -27,7 +28,8 @@ INSTALL_ACTIONS = [ACTION_INSTALL_PLUGIN,
 
 OTHER_PLUGIN_ACTIONS = [ACTION_COPY_DATA,
                         ACTION_GENERATE_METADATA,
-                        ACTION_SEND_METADATA]
+                        ACTION_SEND_METADATA,
+                        ACTION_PRINT_PROJECT]
 
 FANDANGO_CMD = 'fandanGO'
 
