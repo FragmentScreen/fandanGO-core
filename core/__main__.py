@@ -59,7 +59,7 @@ ACTION can be:
     
     {ACTION_LINK_PROJECT}\t\tLinks a FandanGO project with a proposal id.
     
-    {ACTION_COPY_DATA}\t\tCopies a FandanGO project into a data sharing environment.
+    {ACTION_COPY_DATA}\t\t\tCopies a FandanGO project into a data sharing environment.
 
     {ACTION_GENERATE_METADATA}\t\tGenerates metadata file for a FandanGO project.
 
