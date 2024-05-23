@@ -11,18 +11,15 @@ def perform_core_action():
 
     invoke_cmd = FANDANGO_CMD + ' ' + sys.argv[1]
 
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    subparsers = parser.add_subparsers(help=f'action "{ACTION_CREATE_PROJECT}", "{ACTION_DELETE_PROJECT}" or "{ACTION_LIST_PROJECTS}"',
-                                       dest='action',
-                                       title='Action',
-                                       description=f'available actions are "{ACTION_CREATE_PROJECT}", "{ACTION_DELETE_PROJECT}" or "{ACTION_LIST_PROJECTS}"')
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest='action')
 
     ###########################################################################
     #                          Create project parser                          #
     ###########################################################################
 
-    create_parser = subparsers.add_parser(ACTION_CREATE_PROJECT, formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd} [--help] [--name] project-name',
+    create_parser = subparsers.add_parser(ACTION_CREATE_PROJECT,
+                                          usage=f'{invoke_cmd} [--help] --name PROJECT_NAME',
                                           epilog=f'Example: {invoke_cmd} --name test_project  \n\n',
                                           add_help=False)
     create_parser.add_argument('--help', action='store_true', help='show help')
@@ -32,9 +29,8 @@ def perform_core_action():
     #                          Delete project parser                          #
     ###########################################################################
 
-    delete_parser = subparsers.add_parser(ACTION_DELETE_PROJECT, aliases=[ACTION_DELETE_PROJECT],
-                                          formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd} [--help] [--name] project-name',
+    delete_parser = subparsers.add_parser(ACTION_DELETE_PROJECT,
+                                          usage=f'{invoke_cmd} [--help] [--name] PROJECT_NAME',
                                           epilog=f'Example: {invoke_cmd} --name test_project  \n\n',
                                           add_help=False)
     delete_parser.add_argument('--help', action='store_true', help='show help')
@@ -44,21 +40,20 @@ def perform_core_action():
     #                           List projects parser                          #
     ###########################################################################
 
-    list_parser = subparsers.add_parser(ACTION_LIST_PROJECTS, aliases=[ACTION_LIST_PROJECTS],
-                                          formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd}',
-                                          epilog=f'Example: {invoke_cmd}\n\n',
-                                          add_help=False)
+    list_parser = subparsers.add_parser(ACTION_LIST_PROJECTS,
+                                        usage=f'{invoke_cmd}',
+                                        epilog=f'Example: {invoke_cmd}\n\n',
+                                        add_help=False)
     list_parser.add_argument('--help', action='store_true', help='show help')
 
     ###########################################################################
     #                           Link project parser                           #
     ###########################################################################
 
-    link_parser = subparsers.add_parser(ACTION_LINK_PROJECT, formatter_class=argparse.RawTextHelpFormatter,
-                                          usage=f'{invoke_cmd} [--help] [--name] project-name [--plugin] project-manager',
-                                          epilog=f'Example: {invoke_cmd} --name test_project --plugin fandanGO-cryoem-cnb  \n\n',
-                                          add_help=False)
+    link_parser = subparsers.add_parser(ACTION_LINK_PROJECT,
+                                        usage=f'{invoke_cmd} [--help] [--name] PROJECT_NAME [--plugin] PROJECT_MANAGER',
+                                        epilog=f'Example: {invoke_cmd} --name test_project --plugin fandanGO-cryoem-cnb  \n\n',
+                                        add_help=False)
     link_parser.add_argument('--help', action='store_true', help='show help')
     link_parser.add_argument('--name', help='the name of the project to link\n')
     link_parser.add_argument('--plugin', help='the name of the plugin manager for the project (must be previously installed)\n')
