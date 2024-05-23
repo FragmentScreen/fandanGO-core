@@ -1,45 +1,26 @@
 from core.constants import ACTION_LINK_PROJECT, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA
+from abc import ABC, abstractmethod
 
 
-class Plugin:
+class Plugin(ABC):
     allowed_args = {}
     methods = {}
+
+    @abstractmethod
+    def define_args(cls):
+        pass
 
     @classmethod
     def define_arg(cls, action_name, values):
         cls.allowed_args[action_name] = {**cls.allowed_args.get(action_name, {}), **values}
 
     @classmethod
-    def define_args(cls):
-        cls.define_arg(ACTION_LINK_PROJECT, {'n': {'long_name': 'project-name',
-                                                   'help': 'the name of the project to associate to a proposal',
-                                                   'required': True},
-                                             'id': {'long_name': 'proposal-id',
-                                                    'help': 'the id of the proposal',
-                                                    'required': True}
-                                             })
-
-        cls.define_arg(ACTION_COPY_DATA, {'n': {'long_name': 'project-name',
-                                                'help': 'the name of the project to copy onto a data sharing environment',
-                                                'required': True},
-                                          'd': {'long_name': 'raw-data-path',
-                                                'help': 'path of the raw data',
-                                                'required': True}
-                                          })
-
-        cls.define_arg(ACTION_GENERATE_METADATA, {'n': {'long_name': 'project-name',
-                                                        'help': 'the name of the project for which metadata will be generated',
-                                                        'required': True}
-                                                  })
-
-        cls.define_arg(ACTION_SEND_METADATA, {'n': {'long_name': 'project-name',
-                                                    'help': 'the name of the project for which metadata will be sent',
-                                                    'required': True}
-                                              })
-
-    @classmethod
     def get_args(cls):
         return cls.allowed_args
+
+    @abstractmethod
+    def define_methods(cls):
+        pass
 
     @classmethod
     def define_method(cls, action_name, value):
