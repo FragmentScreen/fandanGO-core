@@ -56,7 +56,7 @@ def delegate_action_to_plugin():
     if '--help' in unknown_args and not parsed_args.name:
         final_parser = argparse.ArgumentParser(parents=[parser_used],
                                                usage=f'{invoke_cmd} [--help] --name PROJECT_NAME',
-                                               epilog=f'Example: {invoke_cmd} --name test-project\n\n',
+                                               epilog=f'Example: {invoke_cmd} --name test_project\n\n',
                                                add_help=True)
         final_parser.print_help()
         final_parser.exit(0)
