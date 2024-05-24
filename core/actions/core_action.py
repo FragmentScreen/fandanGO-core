@@ -1,10 +1,17 @@
 import sys
 import argparse
 import datetime
+import re
 from tabulate import tabulate
 from importlib.metadata import entry_points
 from core.constants import ACTION_CREATE_PROJECT, ACTION_DELETE_PROJECT, ACTION_LIST_PROJECTS, ACTION_LINK_PROJECT, FANDANGO_CMD
 from core.db.sqlite_db import create_new_project, delete_project, list_projects, update_project
+
+def is_valid_string(value):
+    """ Checks if FandanGO project name is valid """
+    if not re.match("^[a-zA-Z0-9]+$", value):
+        raise argparse.ArgumentTypeError(f'Invalid string value for project name: {value}. Only alphanumeric characters are allowed.')
+    return value
 
 def perform_core_action():
     """ Deals with core basic actions """
@@ -23,7 +30,7 @@ def perform_core_action():
                                           epilog=f'Example: {invoke_cmd} --name test_project  \n\n',
                                           add_help=False)
     create_parser.add_argument('--help', action='store_true', help='show help')
-    create_parser.add_argument('--name', help='the name of the project to create\n')
+    create_parser.add_argument('--name', type=is_valid_string, help='the name of the project to create (must be alphanumeric)\n')
 
     ###########################################################################
     #                          Delete project parser                          #
