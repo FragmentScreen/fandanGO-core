@@ -1,3 +1,4 @@
+import datetime
 from core.db.sqlite import connect_to_ddbb, close_connection_to_ddbb
 
 def create_new_project(new_project):
@@ -80,7 +81,11 @@ def list_projects():
         connection = connect_to_ddbb()
         cursor = connection.cursor()
         cursor.execute('SELECT * FROM project')
-        projects = cursor.fetchall()
+        projects = []
+        for project in cursor.fetchall():
+            project = list(project)
+            project[1] = datetime.datetime.fromtimestamp(project[1]).strftime('%d-%m-%Y')
+            projects.append(tuple(project))
         column_names = [columns[0] for columns in cursor.description]
         return column_names, projects
     except Exception as e:
