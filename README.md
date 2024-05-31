@@ -26,7 +26,7 @@ This is the core plugin of the FandanGO application.
 4. Activate environment and install the core (replace `/path/for/fandanGO-core` with the proper path):
    ```
    conda activate fandanGO
-   git clone https://github.com/I2PC/fandanGO-core.git
+   git clone https://github.com/FragmentScreen/fandanGO-core.git
    pip install -e /path/for/fandanGO-core
    ```
    
@@ -66,12 +66,12 @@ This is the core plugin of the FandanGO application.
 
 - Install:
    ```
-   fandanGO install-plugin -p /path/to/fandanGO-plugin
+   fandanGO install-plugin --plugin /path/to/fandanGO-plugin
    ```
 
 - Uninstall:
    ```
-   fandanGO uninstall-plugin -p fandanGO-plugin
+   fandanGO uninstall-plugin --plugin fandanGO-plugin
    ```
 
 ### How to develop a new plugin
@@ -86,10 +86,9 @@ A FandanGO plugin should have:
     }
    ```
 3. A `__init.py__` file with a `Plugin` class extending the `core.Plugin` class with the functions:
-   - `define_args` (optional): for each action implemented in the plugin defines the parameters needed (extending the basic ones described in the core `Plugin` class)
+   - `define_args` (optional): for each action implemented in the plugin defines the parameters needed (furthermore the fandanGO project name)
    - `define_methods` (mandatory): for each action implemented in the plugin defines the method that will take care of it.
 
-4. Each of the methods described in the `define_methods` function should return a dictionary with the `success` key with the value `True` or `False` depending on whether the action went well or not.
-5. For integrity reasons, your plugin database should store the FandanGO project name as one of the table fields.
+4. For integrity reasons, your plugin database should store the FandanGO project name as one of the table fields.
 
-You can take as example the fandanGO-template plugin placed at https://github.com/FragmentScreen/fandanGO-template
+You can take as example the fandanGO-cryoem-cnb plugin placed at https://github.com/FragmentScreen/fandanGO-cryoem-cnb
