@@ -2,7 +2,7 @@ import sys
 import argparse
 from importlib import import_module
 from importlib.metadata import entry_points
-from core.constants import ACTION_LINK_PROJECT, ACTION_LIST_PROJECTS, ACTION_COPY_DATA, ACTION_GENERATE_METADATA, ACTION_SEND_METADATA, ACTION_PRINT_PROJECT, FANDANGO_CMD
+from core.constants import ACTION_LINK_PROJECT, ACTION_LIST_PROJECTS, ACTION_EXECUTE, FANDANGO_CMD
 from core.db.sqlite_db import check_if_project_exists, get_plugin_manager
 
 
@@ -12,58 +12,30 @@ def delegate_action_to_plugin():
     invoke_cmd = FANDANGO_CMD + ' ' + sys.argv[1]
 
     init_parser = argparse.ArgumentParser()
-    subparsers = init_parser.add_subparsers(dest='action')
+    subparsers = init_parser.add_subparsers()
 
     ###########################################################################
-    #                           Copy project parser                           #
+    #                             Execute parser                              #
     ###########################################################################
-
-    copy_parser = subparsers.add_parser(ACTION_COPY_DATA, add_help=False)
-    copy_parser.add_argument('--name', help='the name of the project to copy\n')
-
-    ###########################################################################
-    #                           Generate metadata parser                      #
-    ###########################################################################
-
-    generate_parser = subparsers.add_parser(ACTION_GENERATE_METADATA, add_help=False)
-    generate_parser.add_argument('--name', help='the name of the project to generate metadata\n')
-
-    ###########################################################################
-    #                           Send metadata parser                          #
-    ###########################################################################
-
-    send_parser = subparsers.add_parser(ACTION_SEND_METADATA, add_help=False)
-    send_parser.add_argument('--name', help='the name of the project to send metadata\n')
-
-    ###########################################################################
-    #                           Print project parser                          #
-    ###########################################################################
-
-    print_parser = subparsers.add_parser(ACTION_PRINT_PROJECT,
-                                         add_help=False)
-    print_parser.add_argument('--name', help='the name of the project to get info about\n')
-
-    action_to_parser = {ACTION_COPY_DATA: copy_parser,
-                        ACTION_GENERATE_METADATA: generate_parser,
-                        ACTION_SEND_METADATA: send_parser,
-                        ACTION_PRINT_PROJECT: print_parser}
+    execute_parser = subparsers.add_parser(ACTION_EXECUTE, add_help=False)
+    execute_parser.add_argument('--action', help='the name of the action to be performed by the plugin manager\n')
+    execute_parser.add_argument('--name', help='the name of the project\n')
 
     parsed_args, unknown_args = init_parser.parse_known_args(sys.argv[1:])
-    action = parsed_args.action
-    parser_used = action_to_parser[action]
+    parser_used = execute_parser
     exit_with_errors = False
 
-    if '--help' in unknown_args and not parsed_args.name:
+    if '--help' in unknown_args and (not parsed_args.action or not parsed_args.name):
         final_parser = argparse.ArgumentParser(parents=[parser_used],
-                                               usage=f'{invoke_cmd} [--help] --name PROJECT_NAME',
-                                               epilog=f'Example: {invoke_cmd} --name test_project\n\n',
+                                               usage=f'{invoke_cmd} [--help] --action ACTION_NAME --name PROJECT_NAME',
+                                               epilog=f'Example: {invoke_cmd} --action copy-data --name test_project\n\n',
                                                add_help=True)
         final_parser.print_help()
         final_parser.exit(0)
 
     else:
-        if not parsed_args.name:
-            print('You should provided a project_name!')
+        if not parsed_args.name or not parsed_args.action:
+            print('You should provided a project name and the action to be performed!')
             exit_with_errors = True
 
         else:

@@ -58,15 +58,9 @@ ACTION can be:
     {ACTION_LIST_PROJECTS}\t\tLists FandanGO projects.
     
     {ACTION_LINK_PROJECT}\t\tLinks a FandanGO project with a technique-facility plugin manager.
-    
-    {ACTION_PRINT_PROJECT}\t\tPrint info for a FandanGO project.
-    
-    {ACTION_COPY_DATA}\t\t\tCopies a FandanGO project into a data sharing environment.
-
-    {ACTION_GENERATE_METADATA}\t\tGenerates metadata for a FandanGO project.
-
-    {ACTION_SEND_METADATA}\t\tSends metadata from a FandanGO project.
-                         
+        
+    {ACTION_EXECUTE}\t\t\tExecutes an action defined by the technique-facility plugin manager.
+                
 ''')
 
 if __name__ == '__main__':
