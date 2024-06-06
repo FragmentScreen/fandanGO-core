@@ -12,10 +12,6 @@ ACTION_LIST_PROJECTS = 'list-projects'
 ACTION_LINK_PROJECT = 'link-project'
 ACTION_PRINT_PROJECT = 'print-project'
 
-ACTION_COPY_DATA = 'copy-data'
-ACTION_GENERATE_METADATA = 'generate-metadata'
-ACTION_SEND_METADATA = 'send-metadata'
-
 ACTION_PIP = 'pip'
 
 ACTION_EXECUTE = 'execute'
