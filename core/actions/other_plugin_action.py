@@ -81,8 +81,8 @@ def delegate_action_to_plugin():
 
                     if allowed_args:
                         final_parser = argparse.ArgumentParser(parents=[parser_used],
-                                                               usage=f'{invoke_cmd} [--help] --name PROJECT_NAME {allowed_args["help"]["usage"]}',
-                                                               epilog=f'Example: {invoke_cmd} --name test_project {allowed_args["help"]["epilog"]}\n\n',
+                                                               usage=f'{invoke_cmd} [--help] --name PROJECT_NAME --action {parsed_args.action} {allowed_args["help"]["usage"]}',
+                                                               epilog=f'Example: {invoke_cmd} --name test_project --action {parsed_args.action} {allowed_args["help"]["epilog"]}\n\n',
                                                                add_help=True)
 
                         for arg_name, arg_info in allowed_args['args'].items():
