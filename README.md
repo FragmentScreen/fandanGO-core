@@ -85,7 +85,7 @@ A FandanGO plugin should have:
         'fandango.plugin': 'fandanGOPluginName = pythonModuleName'
     }
    ```
-3. A `__init.py__` file with a `Plugin` class extending the `core.Plugin` class with the functions:
+3. A `__init__.py` file with a `Plugin` class extending the `core.Plugin` class with the functions:
    - `define_args` (optional): for each action implemented in the plugin defines the parameters needed (furthermore the fandanGO project name)
    - `define_methods` (mandatory): for each action implemented in the plugin defines the method that will take care of it.
 
