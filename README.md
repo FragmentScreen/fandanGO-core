@@ -1,5 +1,7 @@
 # FandanGO - core plugin
 
+[![OSV Scanner](https://github.com/FragmentScreen/fandanGO-core/actions/workflows/osv-scanner.yml/badge.svg)](https://github.com/FragmentScreen/fandanGO-core/actions/workflows/osv-scanner.yml)
+
 This is the core plugin of the FandanGO application.
 
 ## How to deploy it
@@ -92,3 +94,26 @@ A FandanGO plugin should have:
 4. For integrity reasons, your plugin database should store the FandanGO project name as one of the table fields.
 
 You can take as example the fandanGO-cryoem-cnb plugin placed at https://github.com/FragmentScreen/fandanGO-cryoem-cnb
+
+## Security Scanning
+
+This repo uses [OSV Scanner](https://github.com/google/osv-scanner) for vulnerability detection.
+
+**When it runs:**
+- Daily at 03:00 UTC (full scan)
+- On PRs targeting main (changed deps only)
+- On push to main (full scan)
+
+**If vulnerabilities are found:**
+1. Check the [Security tab](../../security) for alerts
+2. To ignore false positives, add entries to `osv-scanner.toml`:
+   ```toml
+   [[IgnoredVulns]]
+   id = "GHSA-xxxx-xxxx-xxxx"
+   reason = "Justification"
+   ```
+
+**References:**
+- [OSV Scanner docs](https://google.github.io/osv-scanner/)
+- [GitHub Action](https://github.com/google/osv-scanner-action)
+- [OSV Database](https://osv.dev/)
