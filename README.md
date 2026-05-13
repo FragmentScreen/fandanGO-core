@@ -57,7 +57,14 @@ This is the core plugin of the FandanGO application.
    alias fandanGO='/path/for/fandanGO'
    ```
 
-7. Play with FandangGO!💃:
+7. Create the config.yaml from template
+   ```
+   cp config.template.yaml config.yaml'
+   mkdir /home/USERNAME/FandanGOUserData
+   ```
+   edit the config.yaml file DDBB_PATH = /home/USERNAME/FandanGOUserData
+
+8. Play with FandangGO!💃:
    ```
    fandanGO --help
    ```
